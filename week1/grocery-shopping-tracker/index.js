@@ -5,14 +5,6 @@ const rl = readline.createInterface({
   output: process.stdout // Write to standard output (console)
 });
 
-// rl.on('line', (line) => {
-//     console.log(line);
-// });
-
-// rl.once('close', () => {
-//      // end of input
-//      console.log("Goodbye");
-//  });
 
 const groceryList = [{name: "butter", quantity: 1, price: 5, bought: false}];
 
