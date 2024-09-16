@@ -1,0 +1,17 @@
+{
+  "name": "foundations",
+  "version": "1.0.0",
+  "description": "Backend project using Node/Express/AWS/DynamoDB",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon",
+    "test": "jest"
+  },
+  "author": "gustavo gamboa malaver",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.0",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.4"
+  }
+}
