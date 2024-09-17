@@ -1,6 +1,6 @@
 const http = require("http");
 const fs = require("fs").promises;
-const { getList, addItem, updateItem, removeItem } = require("./APIDAO");
+const { getList, addItem, updateItem, removeItem } = require("./AWS-API-DAO");
 
 const PORT = 3000
 
@@ -63,10 +63,10 @@ const server = http.createServer(async (req, res) => {
                 //logger.info(`Request body: ${body}`);
 
                 const item = JSON.parse(body);
-                removeItem(item);
+                const data = await removeItem(item);
 
                 res.statusCode = 200; 
-                res.end(JSON.stringify({message: "DELETE request handled"}));
+                res.end(JSON.stringify({message: `DELETE request handled`}));
             });
             break;
         default:

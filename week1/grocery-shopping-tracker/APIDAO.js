@@ -14,7 +14,7 @@ async function getList(){
 
 async function addItem(item){
     try {
-        const data = await fs.readFile('data.json', 'utf8'); 
+        const data = await fs.readFile('./data.json', 'utf8'); 
         const jsonData= JSON.parse(data); 
         
         jsonData.groceryList.push(item);
