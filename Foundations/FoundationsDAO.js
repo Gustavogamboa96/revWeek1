@@ -13,10 +13,8 @@ const client = new DynamoDBClient({region: "us-east-1"});
 
 const documentClient = DynamoDBDocumentClient.from(client);
 
-const TableName = "";
 
-
-async function getList(){
+async function getList(TableName){
     const command  = new ScanCommand({
         TableName
     })
@@ -29,7 +27,7 @@ async function getList(){
     }
 }
 // console.log(getList());
-async function addItem(Item){
+async function addItem(TableName, Item){
     let item_id = uuid.v4();
     Item["item-id"] = item_id;
 
@@ -48,9 +46,9 @@ async function addItem(Item){
 
 }
 
-async function findByName(itemName){
+async function findByName(TableName, itemName){
     const command = new QueryCommand({
-        TableName: "groceries",
+        TableName,
         IndexName: "name-index", // GSI name
         KeyConditionExpression: "#n = :name",
         ExpressionAttributeNames: {
@@ -73,7 +71,7 @@ async function findByName(itemName){
     }
 }
 
-async function updateItem(Item){
+async function updateItem(TableName, Item){
     const itemToUpdate = await findByName(Item.name);
     const key = {"item-id": itemToUpdate["item-id"]};
     let updateExpression = 'set ';
@@ -110,7 +108,7 @@ async function updateItem(Item){
     }    
 }
 
-async function removeItem(Item){
+async function removeItem(TableName, Item){
     const itemToDelete = await findByName(Item.name);
     const key = {"item-id": itemToDelete["item-id"]};
 
