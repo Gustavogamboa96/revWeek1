@@ -15,8 +15,6 @@ Last Updated: 2024-09-18
 - Detailed Design
   - Solution 1
     - Backend
-- Considerations
-- Metrics
 
 ## Objective
 This is a backend project to leverage the NED stack
@@ -36,30 +34,20 @@ This project should allow employees to create tickets detailing their expenses
 and should allow managers to see said tickets and approve them or deny them.
 
 ## Detailed Design
-_Use diagrams where necessary._
-
-_Tools like [Excalidraw](https://excalidraw.com) are good resources for this._
-
-_Cover major changes:_
-
- _- What are the new functions that you will write?_
-
- _- Why do you need new components?_
-
- _- Is there any code that can be reusable?_
-
-_Don’t elaborate deeply on the implementation details._
+-Route to /register should default to Employee but if specified should allow Managers to register as such
+-Route to /login checks role and authenticates
+-Route to /create-ticket only accessible by Employee role
+-Route to /view-ticket-history accessible by Employee and Manager roles but employee can only see their own
+-Route to /view-pending-tickets accessible to Manager and sees all employees tickets
+-Route to /process-ticket accessible to Manager to decide whether to accept or deny tickets
 
 ## Solution 1
 ### Backend
-_Backend…_
-
-## Considerations
-_Concerns / trade-offs / tech debt_
-
-## Metrics
-_What data do you need to validate before launching this feature?_
-
+-Node
+-Express
+-DynamoDB on AWS
+-Jest for testing
+-Postman to interact with app
 
 
 
