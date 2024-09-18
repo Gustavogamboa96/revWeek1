@@ -26,7 +26,7 @@ Unit testing with Jest
 ## Goals
 - To develop a ticketing reimbursement system for a company 
 ## Non-Goals
-- Non-Goals
+- this should not have a frontend but work solely as an API
 
 ## Background
 This is a project completed in Revature training.
