@@ -1,7 +1,7 @@
-const {addTicket} = require('./TicketsDAO');
+const {addTicket} = require('../repository/TicketsDAO');
 const uuid = require('uuid');
 
-const JWT_SECRET = "voXUv4xSHdEkYA9pGaHGkI+TcIvvJgjtMVdMaoCHQ94="
+const JWT_SECRET = process.env.JWT_SECRET;
 
 async function createTicket(email, role, amount, description, type){
     if(!amount || !description){

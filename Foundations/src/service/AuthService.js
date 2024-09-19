@@ -1,8 +1,8 @@
-const {findByEmail, addUser} = require("./UsersDAO");
+const {findByEmail, addUser} = require("../repository/UsersDAO");
 const bcrypt = require("bcryptjs")
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = "voXUv4xSHdEkYA9pGaHGkI+TcIvvJgjtMVdMaoCHQ94="
+const JWT_SECRET = process.env.JWT_SECRET;
 
 async function login(email, password) {
     const user = await findByEmail(email);

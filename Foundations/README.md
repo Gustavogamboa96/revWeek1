@@ -34,12 +34,13 @@ This project should allow employees to create tickets detailing their expenses
 and should allow managers to see said tickets and approve them or deny them.
 
 ## Detailed Design
-- Route to /register should default to Employee but if specified should allow Managers to register as such
-- Route to /login checks role and authenticates
-- Route to /create-ticket only accessible by Employee role
-- Route to /view-ticket-history accessible by Employee and Manager roles but employee can only see their own
-- Route to /view-pending-tickets accessible to Manager and sees all employees tickets
-- Route to /process-ticket accessible to Manager to decide whether to accept or deny tickets
+- POST Route to auth/register should default to Employee but if specified should allow Managers to register as such
+- POST Route to auth/login checks role and authenticates
+- POST Route to employee/tickets only accessible by Employee role
+- GET Route to employee/tickets accessible by Employee role to see own tickets
+- GET Route to manager/tickets accessible by Manager role to see all tickets
+- GET Route to manager/tickets/pending accessible to Manager and sees all pending employees tickets
+- PUT Route to manager/tickets/pending accessible to Manager to decide whether to accept or deny tickets
 
 ## Solution 1
 ### Backend
