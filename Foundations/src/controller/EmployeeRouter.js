@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const EmployeeService = require('../service/EmployeeService');
-const jwt = require('jsonwebtoken');
-const JWT_SECRET = process.env.JWT_SECRET;
+const {authenticateToken} = require('../util/AuthenticateToken');
 
+//to create tickets
 router.post('/tickets', authenticateToken, async (req, res) => {
     const {amount, description, type} = req.body;
     const email = req.user.email;
     const role = req.user.role;
-  
+
     try{
       const data = await EmployeeService.createTicket(email, role, amount, description, type);
       res.status(201).json({ message: `Ticket created succesfully: ${JSON.stringify(data)}` });
@@ -18,24 +18,20 @@ router.post('/tickets', authenticateToken, async (req, res) => {
   
   });
 
-  function authenticateToken(req, res, next) {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];  // Get the token from the "Bearer <token>" format
+//to see all my tickets
+router.get('/tickets', authenticateToken, async (req, res) =>{
+    const email = req.user.email;
+    const role = req.user.role
 
-    if (!token) {
-        return res.status(401).json({ message: 'No token provided' });
-    }
+    try{
+    data = await EmployeeService.getAllTickets(email, role);
+    res.status(200).json({message: `Here's a list of all tickets for ${email}:`, data});
+    }catch(error){
+        res.status(401).json({message: error.message});
+    }    
+})
 
-    // Verify the token and decode the payload
-    jwt.verify(token, JWT_SECRET, (err, user) => {
-        if (err) {
-            return res.status(403).json({ message: 'Invalid token' });
-        }
 
-        // Attach user info (from token payload) to the request object
-        req.user = user;
-        next();
-    });
-}
+
 
 module.exports = router;

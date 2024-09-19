@@ -1,4 +1,4 @@
-const {addTicket} = require('../repository/TicketsDAO');
+const {addItem, getAllItemsByEmail} = require('../repository/TicketsDAO');
 const uuid = require('uuid');
 
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -18,7 +18,17 @@ async function createTicket(email, role, amount, description, type){
 
     const ticket = {email, ticketId, amount, description, status, type};
 
-    return addTicket(ticket);
+    return addItem(ticket);
 }
 
-module.exports = {createTicket};
+async function getAllTickets(email, role){
+    if(role !== "employee"){
+        throw new Error("Managers can't access this route");
+    }
+
+    return getAllItemsByEmail(email);
+
+}
+
+
+module.exports = {createTicket, getAllTickets};

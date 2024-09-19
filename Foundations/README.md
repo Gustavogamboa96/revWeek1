@@ -36,11 +36,11 @@ and should allow managers to see said tickets and approve them or deny them.
 ## Detailed Design
 - POST Route to auth/register should default to Employee but if specified should allow Managers to register as such
 - POST Route to auth/login checks role and authenticates
-- POST Route to employee/tickets only accessible by Employee role
+- POST Route to employee/tickets only accessible by Employee role to create tickets
 - GET Route to employee/tickets accessible by Employee role to see own tickets
 - GET Route to manager/tickets accessible by Manager role to see all tickets
-- GET Route to manager/tickets/pending accessible to Manager and sees all pending employees tickets
-- PUT Route to manager/tickets/pending accessible to Manager to decide whether to accept or deny tickets
+- GET Route to manager/tickets?status=pending accessible to Manager and sees all pending employees tickets (any status accepted)
+- PUT Route to manager/tickets?ticketId=id accessible to Manager to decide whether to accept or deny tickets
 
 ## Solution 1
 ### Backend
