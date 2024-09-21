@@ -1,6 +1,7 @@
 const {findByEmail, addUser} = require("../repository/UsersDAO");
 const bcrypt = require("bcryptjs")
 const jwt = require('jsonwebtoken');
+const saltRounds = 10;
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -12,7 +13,7 @@ async function login(email, password) {
     }
     console.log(`${user.email} ${user.password}`)
     // const isPasswordValid = await bcrypt.compare(password, user.password);
-    const isPasswordValid = password === user.password;
+    const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       throw new Error('Invalid credentials');
     }
@@ -32,6 +33,7 @@ async function register(email, password, role) {
     if(userExists){
         throw new Error('User already exists');
     }
+    password = await bcrypt.hash(password, saltRounds);
     
     const user = {email, password, role};
     const data = await addUser(user);
