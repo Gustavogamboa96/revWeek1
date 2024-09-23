@@ -4,15 +4,14 @@ const jwt = require('jsonwebtoken');
 const saltRounds = 10;
 
 const JWT_SECRET = process.env.JWT_SECRET;
-
+ 
 async function login(email, password) {
     const user = await findByEmail(email);
 
     if (!user) {
         throw new Error('User not found');
     }
-    console.log(`${user.email} ${user.password}`)
-    // const isPasswordValid = await bcrypt.compare(password, user.password);
+    // console.log(`${user.email} ${user.password}`)
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       throw new Error('Invalid credentials');

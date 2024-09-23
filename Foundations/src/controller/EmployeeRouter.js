@@ -11,7 +11,7 @@ router.post('/tickets', authenticateToken, async (req, res) => {
 
     try{
       const data = await EmployeeService.createTicket(email, role, amount, description, type);
-      res.status(201).json({ message: `Ticket created succesfully: ${JSON.stringify(data)}` });
+      res.status(201).json({ message: `Ticket created succesfully: `, data });
     } catch(error) {
       res.status(401).json({ message: error.message });
     }
