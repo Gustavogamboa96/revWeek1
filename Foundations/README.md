@@ -5,7 +5,7 @@ Author(s): Gustavo Gamboa Malaver
 
 Status: [Draft]
 
-Last Updated: 2024-09-18
+Last Updated: 2024-09-27
 
 ## Contents
 - Goals
