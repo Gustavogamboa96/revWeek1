@@ -10,8 +10,11 @@ async function createTicket(email, role, amount, description, type){
     if(role !== "employee"){
         throw new Error("Managers can't create tickets");
     }
+    if(amount < 1){
+        throw new Error("Invalid amount");
+    }
     if(!type){
-        type = "miscelaneous";
+        type = "other";
     }
     const ticketId = uuid.v4()
     const status = "pending";
@@ -30,5 +33,16 @@ async function getAllTickets(email, role){
 
 }
 
+async function getTicketsByType(email, role, type){
+    if(role !== "employee"){
+        throw new Error("Managers can't access this route");
+    }
+    const all = await getAllItemsByEmail(email);
+    const results = all.filter(item => item.type === type)
 
-module.exports = {createTicket, getAllTickets};
+    return results;
+
+}
+
+
+module.exports = {createTicket, getAllTickets, getTicketsByType};

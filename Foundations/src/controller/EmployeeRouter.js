@@ -11,7 +11,7 @@ router.post('/tickets', authenticateToken, async (req, res) => {
 
     try{
       const data = await EmployeeService.createTicket(email, role, amount, description, type);
-      res.status(201).json({ message: `Ticket created succesfully: `, data });
+      res.status(201).json({ message: `Ticket created succesfully: `, amount, description, type });
     } catch(error) {
       res.status(401).json({ message: error.message });
     }
@@ -22,11 +22,19 @@ router.post('/tickets', authenticateToken, async (req, res) => {
 router.get('/tickets', authenticateToken, async (req, res) =>{
     const email = req.user.email;
     const role = req.user.role
-
+//add filter by type
+    const {type} = req.query;
     try{
-    data = await EmployeeService.getAllTickets(email, role);
-    res.status(200).json({message: `Here's a list of all tickets for ${email}:`, data});
-    }catch(error){
+
+    if(!type){
+      data = await EmployeeService.getAllTickets(email, role);
+      return res.status(200).json({message: `Here's a list of all tickets for ${email}:`, data});
+    }else{
+      data = await EmployeeService.getTicketsByType(email, role, type);
+      return res.status(200).json({message: `Here's a list of all tickets for ${email} of type: ${type}:`, data});
+    }
+  
+  }catch(error){
         res.status(401).json({message: error.message});
     }    
 })

@@ -25,7 +25,7 @@ async function register(email, password, role) {
     if(!email || !password){
         throw new Error('Email/Password must not be empty');
     }
-    if(!role){
+    if(!role || role !== "manager" || role !== "employee"){
         role = "employee";
     } 
     const userExists = await findByEmail(email);

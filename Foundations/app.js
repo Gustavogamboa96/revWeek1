@@ -10,8 +10,8 @@ const app = express();
 app.use(express.json());
 
 app.use("/auth", authRouter);
-app.use("/employee", employeeRouter);
-app.use("/manager", managerRouter);
+app.use("/employees", employeeRouter);
+app.use("/managers", managerRouter);
 
 
 

@@ -26,17 +26,30 @@ router.get("/tickets", authenticateToken, async (req, res) => {
     }
 });
 
-router.put('/tickets', authenticateToken, async (req, res) =>{
+router.patch('/tickets', authenticateToken, async (req, res) =>{
     const role = req.user.role;
     const {email, ticketId, newStatus} = req.body;
 
     try{
         const data = await ManagerService.processTicketById(email, role, ticketId, newStatus);
-        res.status(200).json({message: `Here's the updated ticket:`, data});
+        res.status(200).json({message: `The ticket has been updated`, data});
     }catch(error){
         res.status(400).json({message: error.message});
     }
 })
 
+router.post('/tickets', authenticateToken, async (req, res) => {
+    const {amount, description, type} = req.body;
+    const email = req.user.email;
+    const role = req.user.role;
+
+    try{
+      const data = await ManagerService.createTicket(email, role, amount, description, type);
+      res.status(201).json({ message: `Ticket created succesfully: `, data });
+    } catch(error) {
+      res.status(401).json({ message: error.message });
+    }
+  
+  });
 
 module.exports = router;

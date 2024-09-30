@@ -16,7 +16,7 @@ router.post('/register', async (req, res) => {
     const { email, password, role} = req.body;
     try {
       const data = await AuthService.register(email, password, role);
-      res.status(201).json({ message: "User added succesfully" });
+      res.status(201).json({ message: "User added succesfully", email });
     } catch (error) {
       res.status(401).json({ message: error.message });
     }
